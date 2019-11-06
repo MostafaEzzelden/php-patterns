@@ -10,6 +10,6 @@ abstract class EmailDecorator implements EmailInterface
         $this->email = $email;
     }
 
-    abstract public function loadConfig(): array;
+    abstract public function load(): string;
 
 }

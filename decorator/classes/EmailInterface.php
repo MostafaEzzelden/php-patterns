@@ -3,5 +3,5 @@
 
 interface EmailInterface
 {
-    public function loadConfig(): array;
+    public function load(): string;
 }

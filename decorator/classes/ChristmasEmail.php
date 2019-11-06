@@ -3,14 +3,9 @@
 
 class ChristmasEmail extends EmailDecorator
 {
-    protected $config = [
-        'MAIL_ENCRYPTION' => null,
-        'MAIL_BODY' => 'This is extra content for Xmas email',
-    ];
 
-    public function loadConfig(): array
+    public function load(): string
     {
-        $config = array_merge($this->email->loadConfig(), $this->config);
-        return $config;
+        return "<span style=\"color:blue\">ChristmasEmail( </span>" . $this->email->load() . "<span style=\"color:blue\"> )</span>";
     }
 }

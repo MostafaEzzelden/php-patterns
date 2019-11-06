@@ -7,26 +7,22 @@ function __autoload($class_name)
 }
 
 
+function clientCode(EmailInterface $email)
+{
+    echo "<code style=\"font-weight: bold;\">RESULT: " . $email->load() . "</code>";
+}
 
-// $email = new Email();
-// $email->loadConfig();
-// echo "<br>";
+$email = new Email;
+clientCode($email);
 
-// $email = new ChristmasEmailBody($email);
-// $email->loadConfig();
-// echo "<br>";
-
-// $email = new NewYearEmailBody($email);
-// $email->loadConfig();
-
-
-$email = new Email();
-
+echo "<br>";
 $email = new ChristmasEmail($email);
-
 $email = new NewYearEmail($email);
+clientCode($email);
 
-echo "<pre>";
+echo "<br>";
 
-print_r($email->loadConfig());
-
+$email = new Email;
+$email = new NewYearEmail($email);
+$email = new ChristmasEmail($email);
+clientCode($email);
