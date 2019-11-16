@@ -1,10 +1,10 @@
 <?php
 
 /**
- * The UserRepository represents a Subject. Various objects are interested in
+ * The UserEntity represents a Subject. Various objects are interested in
  * tracking its internal state, whether it's adding a new user or removing one.
  */
-class UserRepository implements \SplSubject
+class UserEntity implements \SplSubject, UserRepository
 {
     /**
      * @var array The list of users.
@@ -61,7 +61,7 @@ class UserRepository implements \SplSubject
 
     public function notify(string $event = "*", $data = null): void
     {
-        echo "UserRepository: Broadcasting the '$event' event.</br>";
+        echo "UserEntity: Broadcasting the '$event' event.</br>";
         foreach ($this->getEventObservers($event) as $observer) {
             $observer->update($this, $event, $data);
         }
@@ -71,7 +71,7 @@ class UserRepository implements \SplSubject
 
     public function initialize(): void
     {
-        echo "UserRepository: Loading user records from a file.</br>";
+        echo "UserEntity: Loading user records from a file.</br>";
         $user = new User;
         foreach ($user->getAll() as $user) {
             $this->users[$user->attributes['id']] = $user;
@@ -81,7 +81,7 @@ class UserRepository implements \SplSubject
 
     public function createUser(array $data): User
     {
-        echo "UserRepository: Creating a user.</br>";
+        echo "UserEntity: Creating a user.</br>";
 
         $user = new User;
 
@@ -98,7 +98,7 @@ class UserRepository implements \SplSubject
 
     public function updateUser(User $user, array $data)
     {
-        echo "UserRepository: Updating a user.</br>";
+        echo "UserEntity: Updating a user.</br>";
 
         $id = $user->attributes["id"];
         if (!isset($this->users[$id])) {
@@ -116,7 +116,7 @@ class UserRepository implements \SplSubject
 
     public function deleteUser(User $user): void
     {
-        echo "UserRepository: Deleting a user.</br>";
+        echo "UserEntity: Deleting a user.</br>";
 
         $id = $user->attributes["id"];
         if (!isset($this->users[$id])) {

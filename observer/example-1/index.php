@@ -16,7 +16,7 @@ function __autoload($class_name)
  * The client code.
  */
 
-$repository = new UserRepository;
+$repository = new UserEntity;
 $repository->attach(new Logger(__DIR__ . "/log.txt"), "*");
 $repository->attach(new OnboardingNotification("admin@example.com"), "users:created");
 
@@ -31,4 +31,4 @@ $user = $repository->updateUser($user, [
     "name" => "Ali Ahmed"
 ]);
 
-// $repository->deleteUser($user);
+$repository->deleteUser($user);
