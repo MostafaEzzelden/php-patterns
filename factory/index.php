@@ -3,13 +3,15 @@
 
 function __autoload($class_name)
 {
-    include __DIR__ . '/classes/' . $class_name . '.php';
+    $file =  __DIR__ . '/classes/' . $class_name . '.php';
+
+    if (!file_exists($file)) {
+        throw new \Exception("File  $file not found!");
+    }
+
+    include $file;
 }
 
-/**
- * The client code can work with any subclass of SocialNetworkPoster since it
- * doesn't depend on concrete classes.
- */
 function clientCode(SocialNetworkPoster $creator)
 {
     // ...
