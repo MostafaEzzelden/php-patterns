@@ -1,11 +1,13 @@
 <?php
 
 /**
- * Interface segregation principle
+ * Interface segregation principle (ISP)
+ * A client should never be forced to implement an interface that it dose not use
+ * or clients should not be forced to depend on methods they do not use.
  */
 
 /**
- * autoloader
+ * autoload
  *
  * @param string $class_name
  * @return void
