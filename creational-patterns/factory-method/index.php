@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * Factory Method is a creational design pattern that provides an interface for creating objects in a superclass,
+ * but allows subclasses to alter the type of objects that will be created.
+ *
+ * @see https://refactoring.guru/design-patterns/factory-method
+ */
+
+/**
  * autoload
  *
  * @param string $class_name
@@ -22,12 +29,10 @@ function __autoload(string $class_name): void
  * The client code can work with any subclass of SocialNetworkPoster since it
  * doesn't depend on concrete classes.
  */
-function clientCode(SocialNetworkPoster $creator)
+function clientCode(SocialNetworkPoster $poster)
 {
-    // ...
-    $creator->post("Hello world!");
-    $creator->post("I had a large hamburger this morning!");
-    // ...
+    $poster->post("Hello world!");
+    $poster->post("I had a large hamburger this morning!");
 }
 
 /**
@@ -35,9 +40,9 @@ function clientCode(SocialNetworkPoster $creator)
  * wants to work with, create an object of the proper subclass, and pass it to
  * the client code.
  */
-echo "Testing ConcreteCreator1:\n";
+echo "Testing ConcreteCreator1:<br>";
 clientCode(new FacebookPoster("john_smith", "******"));
-echo "\n\n";
+echo "<br>";
 
-echo "Testing ConcreteCreator2:\n";
+echo "Testing ConcreteCreator2:<br>";
 clientCode(new LinkedInPoster("john_smith@example.com", "******"));
