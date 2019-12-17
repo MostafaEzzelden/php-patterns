@@ -11,7 +11,7 @@ class Application
     {
         $this->environments = $environments;
 
-        $this->container = ServiceContainer::getInstance();
+        $this->container = ServiceContainer::getInstance(); // lets register a singleton object
 
         $this->container->setApp($this);
 

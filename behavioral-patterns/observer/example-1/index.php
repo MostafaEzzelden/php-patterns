@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Observer is a behavioral design pattern that lets you define a subscription mechanism to notify
+ *  multiple objects about any events that happen to the object they’re observing.
+ */
+
 function __autoload($class_name)
 {
     $file =  __DIR__ . '/classes/' . $class_name . '.php';

@@ -5,7 +5,7 @@
  */
 
 /**
- * autoloader
+ * autoload
  *
  * @param string $class_name
  * @return void
