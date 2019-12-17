@@ -1,28 +1,79 @@
 <?php
 
+/**
+ * Decorator is a Conceptual pattern that allows adding new behaviors to objects
+ * dynamically by placing them inside special wrapper objects.
+ *
+ * @see https://refactoring.guru/design-patterns/decorator/php/example
+ */
 
-function __autoload($class_name)
+interface CarService
 {
-    include __DIR__ . '/classes/' . $class_name . '.php';
+    public function getCost(): int;
+
+    public function getDescription(): string;
 }
 
-
-function clientCode(EmailInterface $email)
+class BasicInspection implements CarService
 {
-    echo "<code style=\"font-weight: bold;\">RESULT: " . $email->load() . "</code>";
+    public function getCost(): int
+    {
+        return 10;
+    }
+
+    public function getDescription(): string
+    {
+        return "Basic service";
+    }
 }
 
-$email = new Email;
-clientCode($email);
+class OilChange implements CarService
+{
+    protected $carService;
 
-echo "<br>";
-$email = new ChristmasEmail($email);
-$email = new NewYearEmail($email);
-clientCode($email);
+    public function __construct(CarService $carService)
+    {
+        $this->carService = $carService;
+    }
 
-echo "<br>";
+    public function getCost(): int
+    {
+        return $this->carService->getCost() + 30;
+    }
 
-$email = new Email;
-$email = new NewYearEmail($email);
-$email = new ChristmasEmail($email);
-clientCode($email);
+    public function getDescription(): string
+    {
+        return $this->carService->getDescription() . ", and a oil change";
+    }
+}
+
+class TireRotation implements CarService
+{
+    protected $carService;
+
+    public function __construct(CarService $carService)
+    {
+        $this->carService = $carService;
+    }
+
+    public function getCost(): int
+    {
+        return $this->carService->getCost() + 50;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->carService->getDescription() . ", and a tire rotation";
+    }
+}
+
+// Client code...
+function clientCode(CarService $service)
+{
+    echo $service->getCost();
+    echo PHP_EOL;
+    echo $service->getDescription();
+}
+
+$service = new TireRotation(new OilChange(new BasicInspection()));
+clientCode($service);
