@@ -68,8 +68,8 @@ class SalesReporter
 
 // Client Code...
 $salesReport = new SalesReporter(new SalesRepository);
-$startDate = date('Y-m-d');
-$endDate = date('Y-m-d', strtotime('-3 Months'));
+$endDate = date('Y-m-d');
+$startDate = date('Y-m-d', strtotime('-3 Months'));
 
 $salesReportToHTML = $salesReport->between($startDate, $endDate, new SalesOutputHTML);
 $salesReportToJSON = $salesReport->between($startDate, $endDate, new SalesOutputJSON);
