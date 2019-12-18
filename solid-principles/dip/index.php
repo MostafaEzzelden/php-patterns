@@ -7,24 +7,74 @@
  * but they should depend on abstractions
  */
 
-/**
- * autoload
- *
- * @param string $class_name
- * @return void
- */
-function __autoload(string $class_name)
+interface ConnectionInterface
 {
-    include __DIR__ . '/classes/' . $class_name . '.php';
+    public function connect(): string;
 }
 
+class MongoConnection implements ConnectionInterface
+{
+    public function connect(): string
+    {
+        return "Connect to Mongo database";
+    }
+}
 
+class MySqlConnection implements ConnectionInterface
+{
+    public function connect(): string
+    {
+        return "Connect to MySQL database";
+    }
+}
+
+class PasswordReminder
+{
+    /**
+     * @var ConnectionInterface
+     */
+    private $dbConnection;
+
+    /**
+     * Get the value of dbConnection
+     *
+     * @return  ConnectionInterface
+     */
+    public function getDbConnection()
+    {
+        return $this->dbConnection;
+    }
+
+    /**
+     * Set the value of dbConnection
+     *
+     * @param  ConnectionInterface  $dbConnection
+     *
+     * @return  self
+     */
+    public function setDbConnection(ConnectionInterface $dbConnection)
+    {
+        $this->dbConnection = $dbConnection;
+
+        return $this;
+    }
+
+    /**
+     * @param string $password
+     * @return string
+     */
+    public function validatePassword(string $password)
+    {
+        $dbConnection = $this->getDbConnection()->connect();
+        return  $dbConnection . ' and check if a password (' . $password . ') is a valid password';
+    }
+}
+
+// Client code...
 $passwordReminder = new PasswordReminder;
 
 $passwordReminder->setDbConnection(new MySqlConnection);
-echo $passwordReminder->validatePassword("123");
-
-echo "<br>";
+var_dump($passwordReminder->validatePassword("123"));
 
 $passwordReminder->setDbConnection(new MongoConnection);
-echo $passwordReminder->validatePassword("123");
+var_dump($passwordReminder->validatePassword("123"));
