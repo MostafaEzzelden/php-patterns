@@ -1,5 +1,6 @@
 <?php
 
+namespace App;
 
 /**
  * Let's keep the User class trivial since it's not the focus of our example.

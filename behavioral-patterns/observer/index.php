@@ -5,21 +5,17 @@
  *  multiple objects about any events that happen to the object they’re observing.
  */
 
-function __autoload($class_name)
-{
-    $file =  __DIR__ . '/classes/' . $class_name . '.php';
-    include $file;
-}
+require 'vendor/autoload.php';
 
 
 /**
  * The client code.
  */
 
-$repository = new UserRepository;
+$repository = new App\UserRepository;
 
-$logger = new LogHandler(__DIR__ . "/log.txt");
-$mailer = new MailHandler("admin@example.com");
+$logger = new App\LogHandler(__DIR__ . "/log.txt");
+$mailer = new App\MailHandler("admin@example.com");
 
 $repository->attach($logger, "*");
 $repository->attach($mailer, "users:created");

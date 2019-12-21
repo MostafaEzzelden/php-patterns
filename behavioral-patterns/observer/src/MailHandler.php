@@ -1,5 +1,6 @@
 <?php
 
+namespace App;
 
 /**
  * This Concrete Component sends initial instructions to new users. The client

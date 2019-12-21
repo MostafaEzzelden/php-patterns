@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 /**
  * This Concrete Component logs any events it's subscribed to.
  */

@@ -1,5 +1,6 @@
 <?php
 
+namespace App;
 
 /**
  * The Queue class acts as an Invoker. It stacks the command objects and
@@ -32,7 +33,6 @@ class Queue
     public function isEmpty(): bool
     {
         $query = 'SELECT COUNT("id") FROM "commands" WHERE status = 0';
-
         return $this->db->querySingle($query) === 0;
     }
 
@@ -45,14 +45,15 @@ class Queue
         $statement->execute();
     }
 
-    public function getCommand(): Command
+    public function getCommand(): ?Command
     {
         $query = 'SELECT * FROM "commands" WHERE "status" = 0 LIMIT 1';
         $record = $this->db->querySingle($query, true);
         $command = unserialize(base64_decode($record["command"]));
-        $command->id = $record['id'];
-
-        return $command;
+        if ($command) {
+            $command->id = $record['id'];
+            return $command;
+        }
     }
 
     public function completeCommand(Command $command): void

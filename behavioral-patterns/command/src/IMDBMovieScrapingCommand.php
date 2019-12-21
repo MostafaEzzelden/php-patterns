@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 /**
  * The Concrete Command for scraping the movie details.
  */

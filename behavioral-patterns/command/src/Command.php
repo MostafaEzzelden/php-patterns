@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 /**
  * The Command interface declares the main execution method as well as several
  * helper methods for retrieving a command's metadata.

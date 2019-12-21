@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 /**
  * The base web scraping Command defines the basic downloading infrastructure,
  * common to all concrete web scraping commands.
@@ -52,7 +54,8 @@ abstract class WebScrapingCommand implements Command
 
     public function download(): string
     {
-        $html = file_get_contents($this->getURL());
+        $url = $this->getURL();
+        $html = file_get_contents($url);
         echo "WebScrapingCommand: Downloaded {$this->url}\n";
 
         return $html;

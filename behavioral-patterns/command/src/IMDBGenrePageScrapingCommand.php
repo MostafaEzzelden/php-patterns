@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 /**
  * The Concrete Command for scraping the list of movies in a specific genre.
  */

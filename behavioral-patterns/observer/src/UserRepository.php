@@ -1,5 +1,7 @@
 <?php
 
+namespace App;
+
 class UserRepository extends Event implements UserRepositoryInterface
 {
     /**
