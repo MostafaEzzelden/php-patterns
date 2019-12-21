@@ -2,3 +2,4 @@
 *.sqlite-*
 *.csv
 log.txt
+vendor
