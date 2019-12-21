@@ -68,12 +68,7 @@ class TireRotation implements CarService
 }
 
 // Client code...
-function clientCode(CarService $service)
-{
-    echo $service->getCost();
-    echo PHP_EOL;
-    echo $service->getDescription();
-}
 
 $service = new TireRotation(new OilChange(new BasicInspection()));
-clientCode($service);
+echo "*Cost: {$service->getCost()} \n";
+echo "*Description: {$service->getDescription()} \n";

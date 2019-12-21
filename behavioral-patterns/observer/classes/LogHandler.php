@@ -3,7 +3,7 @@
 /**
  * This Concrete Component logs any events it's subscribed to.
  */
-class Logger implements \SplObserver
+class LogHandler implements ObserverInterface
 {
     private $filename;
 
@@ -18,11 +18,11 @@ class Logger implements \SplObserver
         }
     }
 
-    public function update(\SplSubject $repository, string $event = null, $data = null): void
+    public function handle($repository, string $event = null, $data = null): void
     {
         $entry = date("Y-m-d H:i:s") . ": '$event' with data '" . json_encode($data) . "'\n";
         file_put_contents($this->filename, $entry, FILE_APPEND);
 
-        echo "Logger: I've written '$event' entry to the log.</br>";
+        echo "LogHandler: I've written '$event' entry to the log.\n";
     }
 }

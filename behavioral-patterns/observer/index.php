@@ -8,11 +8,6 @@
 function __autoload($class_name)
 {
     $file =  __DIR__ . '/classes/' . $class_name . '.php';
-
-    if (!file_exists($file)) {
-        throw new \Exception("File  $file not found!");
-    }
-
     include $file;
 }
 
@@ -21,9 +16,13 @@ function __autoload($class_name)
  * The client code.
  */
 
-$repository = new UserEntity;
-$repository->attach(new Logger(__DIR__ . "/log.txt"), "*");
-$repository->attach(new OnboardingNotification("admin@example.com"), "users:created");
+$repository = new UserRepository;
+
+$logger = new LogHandler(__DIR__ . "/log.txt");
+$mailer = new MailHandler("admin@example.com");
+
+$repository->attach($logger, "*");
+$repository->attach($mailer, "users:created");
 
 $repository->initialize();
 
