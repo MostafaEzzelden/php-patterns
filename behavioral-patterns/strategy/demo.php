@@ -1,11 +1,17 @@
 <?php
 
-interface PayInterface
+/**
+ * Strategy Design Pattern
+ *  is a behavioral design pattern that turns a set of behaviors into objects
+ *  and makes them interchangeable inside original context object.
+ */
+
+interface PaymentInterface
 {
     public function pay(int $amount): string;
 }
 
-class PayByPayPal implements PayInterface
+class PayByPayPal implements PaymentInterface
 {
     public function pay(int $amount): string
     {
@@ -13,7 +19,7 @@ class PayByPayPal implements PayInterface
     }
 }
 
-class PayByCC implements PayInterface
+class PayByCreditCard implements PaymentInterface
 {
     public function pay(int $amount): string
     {
@@ -23,9 +29,9 @@ class PayByCC implements PayInterface
 
 class ShoppingCart
 {
-    public function payAmount(int $amount, PayInterface $payment = null): string
+    public function payAmount(int $amount, PaymentInterface $payment = null): string
     {
-        $payment = $payment ?: new PayByCC;
+        $payment = $payment ?: new PayByCreditCard;
         return $payment->pay($amount);
     }
 }

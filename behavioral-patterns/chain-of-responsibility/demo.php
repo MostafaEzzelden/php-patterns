@@ -9,9 +9,9 @@
 abstract class HomeChecker
 {
     /**
-     * @var boolean
+     * @var null
      */
-    protected $successors = false;
+    protected $successors;
 
     /**
      * @param HomeStatus $home
@@ -23,10 +23,9 @@ abstract class HomeChecker
      * @param HomeChecker $successors
      * @return void
      */
-    public function succeedWith(HomeChecker $successors): HomeChecker
+    public function setSuccessors(HomeChecker $successors)
     {
         $this->successors = $successors;
-        return $successors;
     }
 
     /**
@@ -111,13 +110,11 @@ class HomeStatus
 }
 
 // Client Code ...
-
 $locks =  new Locks;
 $alarm = new Alarm;
 $lights = new Lights;
 
-$locks->succeedWith($alarm);
-
-$alarm->succeedWith($lights);
+$locks->setSuccessors($alarm);
+$alarm->setSuccessors($lights);
 
 $locks->check(new HomeStatus);
