@@ -61,5 +61,5 @@ $shapes = [
     new Square(50, 30),
     new Circle(50),
 ];
-$calculator = new AreaCalculator;
-var_dump($calculator->calculate($shapes));
+$areaCalculator = new AreaCalculator;
+var_dump($areaCalculator->calculate($shapes));

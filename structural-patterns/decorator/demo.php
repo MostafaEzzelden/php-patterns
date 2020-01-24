@@ -10,7 +10,6 @@
 interface CarService
 {
     public function getCost(): int;
-
     public function getDescription(): string;
 }
 

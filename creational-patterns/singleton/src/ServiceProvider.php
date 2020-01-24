@@ -1,8 +1,12 @@
 <?php
 
+namespace App;
+
+use App\Application;
+use App\ServiceContainer;
+
 abstract class ServiceProvider
 {
-
     protected $container;
 
     public function setServiceContainer(ServiceContainer $container)

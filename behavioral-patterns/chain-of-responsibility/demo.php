@@ -43,10 +43,10 @@ abstract class HomeChecker
 class Locks extends HomeChecker
 {
     /**
-     * @param \HomeStatus $home
+     * @param HomeStatus $home
      * @return void
      */
-    public function check(\HomeStatus $home): void
+    public function check(HomeStatus $home): void
     {
         if (!$home->locked) {
             throw new Exception('The doors are not locked!!');
@@ -59,10 +59,10 @@ class Locks extends HomeChecker
 class Alarm extends HomeChecker
 {
     /**
-     * @param \HomeStatus $home
+     * @param HomeStatus $home
      * @return void
      */
-    public function check(\HomeStatus $home): void
+    public function check(HomeStatus $home): void
     {
         if (!$home->alarmOn) {
             throw new Exception('The alarm has not been set!!');
@@ -75,10 +75,10 @@ class Alarm extends HomeChecker
 class Lights extends HomeChecker
 {
     /**
-     * @param \HomeStatus $home
+     * @param HomeStatus $home
      * @return void
      */
-    public function check(\HomeStatus $home): void
+    public function check(HomeStatus $home): void
     {
         if (!$home->lightsOff) {
             throw new Exception('The lights still are on!!');

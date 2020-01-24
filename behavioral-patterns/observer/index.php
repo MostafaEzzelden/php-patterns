@@ -1,5 +1,10 @@
 <?php
 
+use App\Models\Model;
+use App\Repositories\UserRepository;
+use App\Observer\Listeners\LogListener;
+use App\Observer\Listeners\MailListener;
+
 /**
  * Observer is a behavioral design pattern that lets you define a subscription mechanism to notify
  *  multiple objects about any events that happen to the object they’re observing.
@@ -12,23 +17,21 @@ require 'vendor/autoload.php';
  * The client code.
  */
 
-$repository = new App\UserRepository;
+$userRepo = new UserRepository;
 
-$logger = new App\LogHandler(__DIR__ . "/log.txt");
-$mailer = new App\MailHandler("admin@example.com");
 
-$repository->attach($logger, "*");
-$repository->attach($mailer, "users:created");
+$userRepo->attach(new LogListener, "*");
+$userRepo->attach(new MailListener("admin@example.com"), "users:created");
 
-$repository->initialize();
+$userRepo->initialize();
 
-$user = $repository->createUser([
+$user = $userRepo->create([
     "name" => "Mostafa Ezz Eldin",
     "email" => "mostafa@example.com",
 ]);
 
-$user = $repository->updateUser($user, [
+$updatedUser = $userRepo->update($user, [
     "name" => "Ali Ahmed"
 ]);
 
-$repository->deleteUser($user);
+$userRepo->delete($updatedUser);

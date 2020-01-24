@@ -1,0 +1,13 @@
+{
+    "name": "patterns/singleton",
+    "description": "",
+    "authors": [{
+        "name": "MostafaEzzelden",
+        "email": "bullet.traitor@gmail.com"
+    }],
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}

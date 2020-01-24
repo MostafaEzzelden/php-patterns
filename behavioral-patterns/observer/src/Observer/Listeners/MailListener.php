@@ -1,12 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Observer\Listeners;
+
+use App\Observer\ObserverInterface;
+use App\Observer\Listeners\ListenersInterface;
 
 /**
  * This Concrete Component sends initial instructions to new users. The client
  * is responsible for attaching this component to a proper user creation event.
  */
-class MailHandler implements ObserverInterface
+class MailListener implements ListenersInterface
 {
     private $adminEmail;
 
@@ -15,7 +18,7 @@ class MailHandler implements ObserverInterface
         $this->adminEmail = $adminEmail;
     }
 
-    public function handle($repository, string $event = null, $data = null): void
+    public function handle(ObserverInterface $handler, string $event = null, $data = null)
     {
         echo "MailHandler: The notification has been emailed!\n";
     }

@@ -1,8 +1,11 @@
 <?php
 
-namespace App;
+namespace App\Observer;
 
-class Event implements EventInterface
+use App\Observer\ObserverInterface;
+use App\Observer\Listeners\ListenersInterface;
+
+class Observer implements ObserverInterface
 {
     /**
      * @var array
@@ -30,13 +33,20 @@ class Event implements EventInterface
         return array_merge($group, $all);
     }
 
-    public function attach(ObserverInterface $observer, string $event = "*"): void
+    /**
+     * Attach Observers listeners
+     *
+     * @param ListenersInterface $observer Observer Object
+     * @param string $event Event name default [*]
+     * @return void
+     */
+    public function attach(ListenersInterface $observer, string $event = "*"): void
     {
         $this->initEventGroup($event);
         $this->observers[$event][] = $observer;
     }
 
-    public function detach(ObserverInterface $observer, string $event = "*"): void
+    public function detach(ListenersInterface $observer, string $event = "*"): void
     {
         foreach ($this->getEventObservers($event) as $key => $s) {
             if ($s === $observer) {
@@ -47,7 +57,6 @@ class Event implements EventInterface
 
     public function notify(string $event = "*", $data = null): void
     {
-        echo "UserEntity: Broadcasting the '$event' event.\n";
         foreach ($this->getEventObservers($event) as $observer) {
             $observer->handle($this, $event, $data);
         }

@@ -12,22 +12,13 @@
  * @see https://refactoring.guru/design-patterns/singleton
  */
 
-/**
- * autoload
- *
- * @param string $class_name
- * @return void
- */
-function __autoload(string $class_name)
-{
-    include __DIR__ . '/classes/' . $class_name . '.php';
-}
+require 'vendor/autoload.php';
 
 
 // Client code
 echo "<pre>";
 
-$application = new Application();
+$application = new App\Application();
 
 $requestService = $application->getContainer()->getService('request');
 
@@ -35,6 +26,6 @@ $application = $application->getContainer()->getApp();
 
 var_dump($application->getContainer());
 
-$application->setContainer(ServiceContainer::getInstance());
+$application->setContainer(App\ServiceContainer::getInstance());
 
 var_dump($application->getContainer());

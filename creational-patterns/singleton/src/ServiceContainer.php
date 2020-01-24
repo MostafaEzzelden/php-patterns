@@ -1,5 +1,10 @@
 <?php
 
+namespace App;
+
+use App\Application;
+use App\ServiceProvider;
+
 class ServiceContainer
 {
     /**

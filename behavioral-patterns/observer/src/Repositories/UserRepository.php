@@ -1,26 +1,30 @@
 <?php
 
-namespace App;
+namespace App\Repositories;
 
-class UserRepository extends Event implements UserRepositoryInterface
+use App\Models\User;
+use App\Models\Model;
+use App\Observer\Observer;
+use App\Repositories\RepositoryInterface;
+
+class UserRepository extends Observer implements RepositoryInterface
 {
     /**
      * @var array The list of users.
      */
     private $users = [];
 
-    public function createUser(array $data): User
+    public function create(array $data): User
     {
         $user = new User;
         $id = bin2hex(openssl_random_pseudo_bytes(16));
         $user->create(array_merge(["id" => $id], $data));
         $this->users[$id] = $user;
         $this->notify("users:created", $user);
-
         return $user;
     }
 
-    public function updateUser(User $user, array $data)
+    public function update(Model $user, array $data)
     {
         $id = $user->attributes["id"];
         if (!isset($this->users[$id])) {
@@ -32,7 +36,7 @@ class UserRepository extends Event implements UserRepositoryInterface
         return $user;
     }
 
-    public function deleteUser(User $user): void
+    public function delete(Model $user): void
     {
         $id = $user->attributes["id"];
         if (!isset($this->users[$id])) {
@@ -46,9 +50,9 @@ class UserRepository extends Event implements UserRepositoryInterface
     public function initialize(): void
     {
         $user = new User;
-        foreach ($user->getAll() as $user) {
+        foreach ($user->all() as $user) {
             $this->users[$user->attributes['id']] = $user;
         }
-        $this->notify("users:init", User::FILENAME);
+        $this->notify("users:init");
     }
 }

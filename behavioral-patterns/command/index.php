@@ -6,14 +6,14 @@
  * with different requests, delay or queue a request’s execution, and support undoubled operations.
  */
 
-
 require 'vendor/autoload.php';
 
 // Client code..
 $queue = App\Queue::get();
 
 if ($queue->isEmpty()) {
-    $queue->add(new App\IMDBGenresScrapingCommand);
+    $command = new App\IMDBGenresScrapingCommand;
+    $queue->add($command);
 }
 
 $queue->work();

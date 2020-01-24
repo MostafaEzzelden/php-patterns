@@ -55,7 +55,6 @@ class PasswordReminder
     public function setDbConnection(ConnectionInterface $dbConnection)
     {
         $this->dbConnection = $dbConnection;
-
         return $this;
     }
 
@@ -74,7 +73,7 @@ class PasswordReminder
 $passwordReminder = new PasswordReminder;
 
 $passwordReminder->setDbConnection(new MySqlConnection);
-var_dump($passwordReminder->validatePassword("123"));
+var_dump($passwordReminder->validatePassword("secret"));
 
 $passwordReminder->setDbConnection(new MongoConnection);
-var_dump($passwordReminder->validatePassword("123"));
+var_dump($passwordReminder->validatePassword("secret"));
